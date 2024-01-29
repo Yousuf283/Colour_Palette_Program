@@ -1,4 +1,4 @@
-local debug = require('stats')
+local debug = require('dev_stuff')
 local colours = require('colours')
 
 local width, height = love.graphics.getDimensions()
