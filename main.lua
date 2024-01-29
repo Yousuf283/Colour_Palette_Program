@@ -2,9 +2,11 @@ local debug = require('dev_stuff')
 local colours = require('colours')
 
 local width, height = love.graphics.getDimensions()
+local cross_icon
 
 love.load = function()
   love.graphics.setBackgroundColor(colours.primary)
+  cross_icon = love.graphics.newImage('images/cross.png')
 end
 
 love.update = function(dt)
@@ -24,6 +26,13 @@ love.mousepressed = function(mx, my, button)
 end
 
 love.draw = function()
-
+  --debug
   debug_draw()
+  --Quit Button
+  love.graphics.draw(cross_icon, width-27, 3)
+  --GUI Panel
+  love.graphics.setColor(colours.secondary)
+  love.graphics.rectangle('fill', 0, 0, 300,600)
+  --
+  love.graphics.setColor(colours.default)
 end
