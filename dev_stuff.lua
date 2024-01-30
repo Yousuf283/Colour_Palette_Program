@@ -13,8 +13,8 @@ debug_update = function(dt)
 end
 
 debug_draw = function()
-  --quit button
-  love.graphics.rectangle('fill', w-30, 0, 30, 30)
+  --quit button hitbox
+  --love.graphics.rectangle('fill', w-30, 0, 30, 30)
 
   --print FPS
   love.graphics.print('FPS: '..FPS, 0, 0)
