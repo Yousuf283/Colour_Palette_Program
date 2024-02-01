@@ -1,6 +1,7 @@
 local debug = require('dev_stuff')
 local colours = require('colours')
 local fonts = require('fonts')
+local cursor = require('cursor')
 
 local width, height = love.graphics.getDimensions()
 
@@ -14,6 +15,8 @@ local calculateDistance = function(x1, y1, x2, y2)
     return distance
 end
 
+local exporting = false
+
 love.update = function(dt)
   debug_update(dt)
 end
@@ -26,6 +29,19 @@ end
 
 love.mousemoved = function(mx, my, dx, dy)
   debug_mouse_moved(mx, my, dx, dy)
+  if not exporting then
+    --Quit Button
+    if (mx >= width-30) and (mx <= width) and (my >= 0) and (my <= 30) then
+      love.mouse.setCursor(cursor.hand)
+    --Export Button
+    elseif (calculateDistance(mx,my, 75, height-75) <= 25) or (calculateDistance(mx,my, 225, height-75) <= 25) or ( (mx >= 75) and (mx <= 225) and (my >= height-100) and (my <= height-50)) then
+      love.mouse.setCursor(cursor.hand)
+    else
+      love.mouse.setCursor(cursor.default)
+    end
+  else
+    love.mouse.setCursor(cursor.wait)
+  end
 end
 
 love.mousepressed = function(mx, my, button)
@@ -35,7 +51,7 @@ love.mousepressed = function(mx, my, button)
   end
   --Export Button
   if (calculateDistance(mx,my, 75, height-75) <= 25) or (calculateDistance(mx,my, 225, height-75) <= 25) or ( (mx >= 75) and (mx <= 225) and (my >= height-100) and (my <= height-50)) then
-    print('Export')
+    exporting = not exporting
   end
 end
 
