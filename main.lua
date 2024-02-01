@@ -34,7 +34,7 @@ love.mousepressed = function(mx, my, button)
     love.event.quit()
   end
   --Export Button
-  if (calculateDistance(mx,my, 75, h-75) <= 25) or (calculateDistance(mx,my, 225, h-75) <= 25) or ( (mx >= 75) and (mx <= 225) and (my >= h-100) and (my <= h-50)) then
+  if (calculateDistance(mx,my, 75, height-75) <= 25) or (calculateDistance(mx,my, 225, height-75) <= 25) or ( (mx >= 75) and (mx <= 225) and (my >= height-100) and (my <= height-50)) then
     print('Export')
   end
 end
