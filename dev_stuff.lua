@@ -1,3 +1,4 @@
+local fonts = require('fonts')
 local FPS = debug.FPS
 FPS = -1
 
@@ -13,10 +14,12 @@ debug_update = function(dt)
 end
 
 debug_draw = function()
+  --[[
   --quit button hitbox
-  --love.graphics.rectangle('fill', w-30, 0, 30, 30)
-
+  love.graphics.rectangle('fill', w-30, 0, 30, 30)
+  ]]
   --print FPS
+  fonts.setFont('kanit')
   love.graphics.print('FPS: '..FPS, 0, 0)
   --print width/height
   love.graphics.print(w..','..h, 0, 10)
