@@ -23,14 +23,14 @@ debug_update = function(dt)
 end
 
 debug_mouse_moved = function(mx, my, dx, dy)
-  --Quit Hitbox
+  --[[--Quit Hitbox
   if (mx >= w-30) and (mx <= w) and (my >= 0) and (my <= 30) then
     print('Quit')
-  end
-  --Export Hitbox
+  end]]
+  --[[--Export Hitbox
   if (calculateDistance(mx,my, 75, h-75) <= 25) or (calculateDistance(mx,my, 225, h-75) <= 25) or ( (mx >= 75) and (mx <= 225) and (my >= h-100) and (my <= h-50)) then
     print('Export')
-  end
+  end]]
 end
 
 debug_draw = function()
