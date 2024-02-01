@@ -20,19 +20,23 @@ love.keypressed = function(k)
 end
 
 love.mousepressed = function(mx, my, button)
+  --Quit Button
   if (mx >= width-30) and (mx <= width) and (my >= 0) and (my <= 30) then
     love.event.quit()
   end
 end
 
 love.draw = function()
-  --debug
-  debug_draw()
   --Quit Button
   love.graphics.draw(cross_icon, width-27, 3)
   --GUI Panel
-  love.graphics.setColor(colours.secondary)
+  colours.setColour('secondary')
   love.graphics.rectangle('fill', 0, 0, 300,600)
-  --
-  love.graphics.setColor(colours.default)
+  --Export Button
+  colours.setColour('tertiary')
+  love.graphics.rectangle('fill', 50, height-100, 200, 50, 25, 25, 50)
+  --Reset Colour
+  colours.setColour('white')
+  --Debug
+  debug_draw()
 end
