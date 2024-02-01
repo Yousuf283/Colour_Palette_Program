@@ -1,7 +1,7 @@
 local fonts = {}
 
 fonts.default = love.graphics.getFont()
-fonts.kanit = love.graphics.newFont('fonts/Kanit/Kanit-Regular.ttf')
+fonts.kanit = love.graphics.newFont('fonts/Kanit/Kanit-Regular.ttf', 40)
 
 fonts.setFont = function(font)
   if font == 'default' then
@@ -12,16 +12,11 @@ fonts.setFont = function(font)
 end
 
 fonts.getDimensions = function(font, msg)
-  local result = {}
-  if font == 'default' then
-    result[1] = fonts.default:getWidth(msg)
-    result[2] = fonts.default:getHeight(msg)
-    return result
-  elseif font == 'kanit' then
-    result[1] = fonts.kanit:getWidth(msg)
-    result[2] = fonts.kanit:getHeight(msg)
-    return result
-  end
+  local output = {-1, -1}
+  local current_font = love.graphics.getFont()
+  output[1] = current_font:getWidth(msg)
+  output[2] = current_font:getHeight(msg)
+  return output
 end
 
 return fonts
