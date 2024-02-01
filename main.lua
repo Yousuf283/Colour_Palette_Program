@@ -61,14 +61,19 @@ love.draw = function()
   --GUI Panel
   colours.setColour('secondary')
   love.graphics.rectangle('fill', 0, 0, 300,600)
+  --Title
+  colours.setColour('tertiary')
+  fonts.setFont('twenty five')
+  love.graphics.print('Colour Palette Creator', 24, 0)
+  love.graphics.line(24, 35, 275, 35)
   --Export Button
   colours.setColour('tertiary')
   love.graphics.rectangle('fill', 50, height-100, 200, 50, 25, 25, 50)
-  fonts.setFont('kanit')
+  fonts.setFont('fourty')
   colours.setColour('black')
   love.graphics.print('Export', 90, height-107)
   --Reset Colour
   colours.setColour('white')
   --Debug
-  debug_draw()
+  --debug_draw()
 end
