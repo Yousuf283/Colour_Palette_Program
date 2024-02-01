@@ -1,12 +1,17 @@
 local debug = require('dev_stuff')
 local colours = require('colours')
+local fonts = require('fonts')
 
 local width, height = love.graphics.getDimensions()
-local cross_icon
 
-love.load = function()
-  love.graphics.setBackgroundColor(colours.primary)
-  cross_icon = love.graphics.newImage('images/cross.png')
+love.graphics.setBackgroundColor(colours.primary)
+local cross_icon = love.graphics.newImage('images/cross.png')
+
+local calculateDistance = function(x1, y1, x2, y2)
+    local dx = x2 - x1
+    local dy = y2 - y1
+    local distance = math.sqrt(dx^2 + dy^2)
+    return distance
 end
 
 love.update = function(dt)
@@ -19,10 +24,18 @@ love.keypressed = function(k)
   end
 end
 
+love.mousemoved = function(mx, my, dx, dy)
+  debug_mouse_moved(mx, my, dx, dy)
+end
+
 love.mousepressed = function(mx, my, button)
   --Quit Button
   if (mx >= width-30) and (mx <= width) and (my >= 0) and (my <= 30) then
     love.event.quit()
+  end
+  --Export Button
+  if (calculateDistance(mx,my, 75, h-75) <= 25) or (calculateDistance(mx,my, 225, h-75) <= 25) or ( (mx >= 75) and (mx <= 225) and (my >= h-100) and (my <= h-50)) then
+    print('Export')
   end
 end
 
@@ -35,6 +48,9 @@ love.draw = function()
   --Export Button
   colours.setColour('tertiary')
   love.graphics.rectangle('fill', 50, height-100, 200, 50, 25, 25, 50)
+  fonts.setFont('kanit')
+  colours.setColour('black')
+  love.graphics.print('Export', 90, height-107)
   --Reset Colour
   colours.setColour('white')
   --Debug
