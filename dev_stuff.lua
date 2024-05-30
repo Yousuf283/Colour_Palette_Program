@@ -23,37 +23,15 @@ debug_update = function(dt)
 end
 
 debug_mouse_moved = function(mx, my, dx, dy)
-  --[[--Quit Hitbox
-  if (mx >= w-30) and (mx <= w) and (my >= 0) and (my <= 30) then
-    print('Quit')
-  end]]
-  --[[--Export Hitbox
-  if (calculateDistance(mx,my, 75, h-75) <= 25) or (calculateDistance(mx,my, 225, h-75) <= 25) or ( (mx >= 75) and (mx <= 225) and (my >= h-100) and (my <= h-50)) then
-    print('Export')
-  end]]
+
 end
 
 debug_draw = function()
-  --[[
-  --quit button hitbox
-  love.graphics.rectangle('fill', w-30, 0, 30, 30)
-  ]]
-  --[[
-  --export button hitbox
-  colours.setColour('black')
-  love.graphics.rectangle('line', 50, h-100, 200, 50)
-  love.graphics.line(75, h-100, 75, h-50)
-  love.graphics.line(225, h-100, 225, h-50)
-  love.graphics.circle('line', 75, h-75, 25)
-  love.graphics.circle('line', 225, h-75, 25)
-  ]]
-  --reset colours
-  colours.setColour('white')
   --print FPS
   fonts.setFont('default')
-  love.graphics.print('FPS: '..FPS, 0, 0)
+  love.graphics.print('FPS: '..FPS, 0, h-15)
   --print w/height
-  love.graphics.print(w..','..h, 0, 10)
+  love.graphics.print(w..','..h, 0, h-25)
   --print mx, my
-  love.graphics.print(mx..','..my, 0, 20)
+  love.graphics.print(mx..','..my, 0, h-35)
 end
