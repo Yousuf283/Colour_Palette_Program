@@ -1,5 +1,7 @@
 local fonts = require('fonts')
 local colours = require('colours')
+
+local scale = 1
 local FPS = debug.FPS
 FPS = -1
 
@@ -17,9 +19,10 @@ local calculateDistance = function(x1, y1, x2, y2)
 end
 
 
-debug_update = function(dt)
+debug_update = function(dt, s)
   FPS = love.timer.getFPS()
   mx, my = love.mouse.getPosition()
+  scale = s
 end
 
 debug_mouse_moved = function(mx, my, dx, dy)
@@ -34,4 +37,6 @@ debug_draw = function()
   love.graphics.print(w..','..h, 0, h-25)
   --print mx, my
   love.graphics.print(mx..','..my, 0, h-35)
+  --print zoom
+  love.graphics.print("Scale: ".. scale, 0, h-45)
 end

@@ -8,11 +8,16 @@ local gamera = require('libs.gamera')
 local width, height = love.graphics.getDimensions()
 love.graphics.setBackgroundColor(colours.primary)
 slab.Initialize(args)
-local cam = gamera.new(0,0,1000,1000)
-cam:setWindow(200,0,600,600)
-scale = 1.0
+local cam = gamera.new(0,0,5000,5000)
+cam:setWindow(200,0,700,600)
+cam:setPosition(2500,2500)
 
-local AmountOfColours = 0
+local dx = 0
+local dy = 0
+
+local scale = 1.0
+local isDragging = false
+local AmountOfColours = 1
 
 love.update = function(dt)
   slab.Update(dt)
@@ -53,7 +58,19 @@ love.update = function(dt)
 	   exporting = true
   end
   slab.EndWindow()
-  debug_update(dt)
+  --Debug
+  debug_update(dt, scale)
+end
+
+love.draw = function()
+  slab.Draw()
+  cam:draw(function()
+    love.graphics.rectangle("fill", 2495, 2495, 10, 10)
+  end)
+  --Reset Colour
+  colours.setColour('white')
+  --Debug
+  debug_draw()
 end
 
 love.keypressed = function(k, scancode, isRepeat)
@@ -62,17 +79,24 @@ love.keypressed = function(k, scancode, isRepeat)
   end
 end
 
-love.textinput = function(text)
-end
-
 love.mousemoved = function(mx, my, dx, dy)
+  if isDragging then
+    local x, y = cam:getPosition()
+    cam:setPosition(x - dx / scale, y - dy / scale)
+  end
   debug_mouse_moved(mx, my, dx, dy)
 end
 
 love.mousepressed = function(mx, my, button, pressCount)
+  if button == 2 and mx > 200 then
+    isDragging = true
+  end
 end
 
 love.mousereleased = function(mx, my, button)
+  if button == 2 then
+    isDragging = false
+  end
 end
 
 love.wheelmoved = function(dx, dy)
@@ -89,29 +113,13 @@ love.wheelmoved = function(dx, dy)
       scale = 0.1
     end
   end
+  cam:setScale(scale)
 end
 
-love.draw = function()
-  slab.Draw()
-  --[[GUI Panel
-  colours.setColour('secondary')
-  love.graphics.rectangle('fill', 0, 0, 300,600)]]
-  --[[Title
-  colours.setColour('tertiary')
-  fonts.setFont('twenty five')
-  love.graphics.print('Colour Palette Creator', 24, 0)
-  love.graphics.line(24, 35, 275, 35)]]
+local coordsToScreen = function(x,y)
+  return cam:toScreen(x,y)
+end
 
-  --Colour Slots
-  for i = 1, AmountOfColours, 1 do
-    --love.graphics.rectangle("fill")
-  end
-  for i = 1, AmountOfColours, 1 do
-    --love.graphics.rectangle("line")
-  end
-  --Reset Colour
-  colours.setColour('white')
-  --Debug
-  love.graphics.print("scale: ".. scale, 0, height-45)
-  debug_draw()
+local coordsToWorld = function(x,y)
+  return cam:toWorld(x,y)
 end
